@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Event Log</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: #00FF00;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }
+
+    .terminal {
+      white-space: pre-wrap;
+      font-size: 15px;
+      max-height: 70vh;
+      overflow-y: auto;
+      padding: 20px;
+      font-size: 14px; /* Adjusted for mobile */
+    }
+
+    body.glitch-mode {
+      animation: bgGlitch 0.1s infinite;
+    }
+
+    @keyframes bgGlitch {
+      0%, 100% { background-color: black; }
+      50% { background-color: #111; }
+    }
+
+    .glitch-letter {
+      position: absolute;
+      color: red;
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      opacity: 0.8;
+      animation: textGlitch 0.5s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes textGlitch {
+      0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 1; }
+      20% { transform: translate(1px, -1px) scale(1.1); opacity: 0.8; }
+      40% { transform: translate(-1px, 1px) scale(0.9); opacity: 0.6; }
+      60% { transform: translate(2px, 0px) scale(1.2); opacity: 0.9; }
+      80% { transform: translate(-2px, -2px) scale(0.8); opacity: 0.5; }
+    }
+
+    .blood-letter {
+      position: absolute;
+      font-size: 24px;
+      color: red;
+      animation: drip 3s linear infinite;
+    }
+
+    @keyframes drip {
+      to { top: 100vh; opacity: 0; }
+    }
+
+    .scary-message {
+      position: fixed;
+      top: 30%;
+      width: 100%;
+      text-align: center;
+      color: red;
+      font-size: 30px; /* Adjusted font size for mobile */
+      font-family: 'Courier New', monospace;
+      display: none;
+      z-index: 9999;
+    }
+
+    .creepy-text {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: red;
+      font-size: 25px; /* Adjusted font size for mobile */
+      font-family: 'Courier New', monospace;
+      display: none;
+      z-index: 9999;
+    }
+
+    /* Animation for creepy lines */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .creepy-text-line {
+      animation: fadeIn 2s forwards;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="terminal" id="terminal">Initializing system security console...</div>
+
+  <div class="scary-message" id="scaryMessage">HI BAIVAB</div>
+  <div class="creepy-text" id="creepyText">YOUR COMPUTER IS MINE NOW...</div>
+  <div class="creepy-text" id="creepyText2">YOU WILL NEVER ESCAPE...</div>
+  <div class="creepy-text" id="creepyText3">LOOK BEHIND YOU...</div>
+  <div class="creepy-text" id="creepyText4">I AM WATCHING YOU...</div>
+  <div class="creepy-text" id="creepyText5">SOON YOU WILL BE MINE...</div>
+
+  <script>
+    const terminal = document.getElementById('terminal');
+    const creepyText = document.getElementById('creepyText');
+    const creepyText2 = document.getElementById('creepyText2');
+    const creepyText3 = document.getElementById('creepyText3');
+    const creepyText4 = document.getElementById('creepyText4');
+    const creepyText5 = document.getElementById('creepyText5');
+    const scaryMessage = document.getElementById('scaryMessage');
+
+    const randomHex = (length = 32) => {
+      const chars = 'ABCDEF0123456789';
+      return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+    };
+
+    const randomBinary = (length = 64) =>
+      Array.from({ length }, () => Math.random() > 0.5 ? '1' : '0').join('');
+
+    const lines = [
+      "Loading security modules...",
+      "Authenticating user: admin",
+      "Initializing deep scan protocols...",
+      "Scan ID: " + randomHex(),
+      "Encrypting session stream...",
+      "BIOS checksum mismatch detected!",
+      "Reverse shell linked to: 203.0.113.77",
+    ];
+
+    for (let j = 0; j < 500; j++) {
+      lines.push(j % 7 === 0 ? "0x" + randomHex(8) + ": " + randomBinary(64) : randomBinary(64));
+    }
+
+    lines.push("Uploading ransomware package...");
+    lines.push("Ransomware deployed: Encrypting user data...");
+    lines.push(">>> Status: Breach Confirmed");
+
+    let i = 0;
+
+    function printLine() {
+      if (i < lines.length) {
+        terminal.textContent += "\n" + lines[i];
+        terminal.scrollTop = terminal.scrollHeight;
+        i++;
+        setTimeout(printLine, 30 + Math.random() * 50);
+      } else {
+        document.body.classList.add('glitch-mode');
+        spawnRandomLetters();
+        setTimeout(() => {
+          triggerBloodRain();
+        }, 2000);
+      }
+    }
+
+    function spawnRandomLetters() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@!';
+      setInterval(() => {
+        const span = document.createElement('span');
+        span.className = 'glitch-letter';
+        span.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
+        span.style.left = Math.random() * window.innerWidth + 'px';
+        span.style.top = Math.random() * window.innerHeight + 'px';
+        document.body.appendChild(span);
+        setTimeout(() => span.remove(), 1000);
+      }, 50);
+    }
+
+    function triggerBloodRain() {
+      document.body.style.backgroundColor = '#300';
+      terminal.style.color = 'red';
+      setInterval(() => {
+        const drop = document.createElement('span');
+        drop.className = 'blood-letter';
+        drop.textContent = '🩸'; // Red blood drop symbol
+        drop.style.left = Math.random() * window.innerWidth + 'px';
+        drop.style.top = '0px';
+        document.body.appendChild(drop);
+      }, 100);
+      setTimeout(() => {
+        scaryMessage.style.display = 'block';
+        setTimeout(() => {
+          creepyText.classList.add('creepy-text-line');
+          creepyText.style.display = 'block';
+        }, 2000);
+        setTimeout(() => {
+          creepyText2.classList.add('creepy-text-line');
+          creepyText2.style.display = 'block';
+        }, 4000);
+        setTimeout(() => {
+          creepyText3.classList.add('creepy-text-line');
+          creepyText3.style.display = 'block';
+        }, 6000);
+        setTimeout(() => {
+          creepyText4.classList.add('creepy-text-line');
+          creepyText4.style.display = 'block';
+        }, 8000);
+        setTimeout(() => {
+          creepyText5.classList.add('creepy-text-line');
+          creepyText5.style.display = 'block';
+        }, 10000);
+      }, 1000);
+    }
+
+    setTimeout(printLine, 800);
+  </script>
+</body>
+</html>
